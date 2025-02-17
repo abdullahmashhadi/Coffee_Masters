@@ -32,11 +32,18 @@ class _GreetState extends State<Greet> {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      Text("Hello $name"),
-      TextField(
-          onChanged: (value) => setState(() {
-                name = value;
-              }))
+      Row(
+        children: [
+          Text("Hello $name"),
+        ],
+      ),
+      Padding(
+          padding: const EdgeInsets.only(
+              top: 300.0, left: 60, right: 60, bottom: 300),
+          child: TextField(
+              onChanged: (value) => setState(() {
+                    name = value;
+                  }))),
     ]);
   }
 }
@@ -48,12 +55,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       // ✅ MaterialApp provides Directionality
-      title: 'Flutter Demo',
+      title: 'Coffee Masters',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Coffee Masters'),
     );
   }
 }
