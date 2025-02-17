@@ -31,11 +31,18 @@ class _GreetState extends State<Greet> {
   var name = "";
   @override
   Widget build(BuildContext context) {
+    var greetStyle = TextStyle(fontSize: 30);
+    double screenWidth = MediaQuery.of(context).size.width;
     return Column(children: [
-      Row(
-        children: [
-          Text("Hello $name"),
-        ],
+      Padding(
+        padding:
+            EdgeInsets.only(left: screenWidth / 2.5, right: screenWidth / 2.5),
+        child: Row(
+          children: [
+            Text("Hello $name", style: greetStyle),
+            Text("!!!", style: greetStyle)
+          ],
+        ),
       ),
       Padding(
           padding: const EdgeInsets.only(
