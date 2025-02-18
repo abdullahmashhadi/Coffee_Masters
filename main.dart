@@ -35,18 +35,23 @@ class _GreetState extends State<Greet> {
     double screenWidth = MediaQuery.of(context).size.width;
     return Column(children: [
       Padding(
-        padding:
-            EdgeInsets.only(left: screenWidth / 2.5, right: screenWidth / 2.5),
+        padding: EdgeInsets.only(left: 30, right: 30),
         child: Row(
           children: [
             Text("Hello $name", style: greetStyle),
-            Text("!!!", style: greetStyle)
+            Text("!!!", style: greetStyle),
           ],
         ),
       ),
       Padding(
+        padding: const EdgeInsets.only(top: 100),
+        child: Column(
+          children: [Text("Type your name:")],
+        ),
+      ),
+      Padding(
           padding: const EdgeInsets.only(
-              top: 300.0, left: 60, right: 60, bottom: 300),
+              top: 300.0, left: 60, right: 60, bottom: 30),
           child: TextField(
               onChanged: (value) => setState(() {
                     name = value;
@@ -55,26 +60,40 @@ class _GreetState extends State<Greet> {
   }
 }
 
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Coffee Masters',
+//       theme: ThemeData(
+//         primarySwatch: Colors.brown,
+//       ),
+//       home: const MyHomePage(),
+//     );
+//   }
+// }
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // ✅ MaterialApp provides Directionality
       title: 'Coffee Masters',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color.fromARGB(255, 43, 28, 20), // Your brown color
+        ),
       ),
-      home: const MyHomePage(title: 'Coffee Masters'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -94,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Image.asset("./images/logo.png"),
       ),
       body: const Greet(),
     );
