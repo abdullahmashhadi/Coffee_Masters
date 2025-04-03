@@ -1,4 +1,7 @@
+import 'package:coffee_masters/pages/offerspage.dart';
 import 'package:flutter/material.dart';
+import 'package:coffee_masters/pages/orderpage.dart';
+import 'package:coffee_masters/pages/menupage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,28 +37,28 @@ class _GreetState extends State<Greet> {
     var greetStyle = TextStyle(fontSize: 30);
     double screenWidth = MediaQuery.of(context).size.width;
     return Column(children: [
-      Padding(
-        padding: EdgeInsets.only(left: 30, right: 30),
+      Center(
+        // Wrap the Row with Center to center both text widgets
         child: Row(
+          mainAxisSize: MainAxisSize
+              .min, // Ensure the row doesn't expand to fill the width
           children: [
-            Text("Hello $name", style: greetStyle),
-            Text("!!!", style: greetStyle),
+            Center(child: Text("Hello $name", style: greetStyle)),
+            Center(child: Text("!!!", style: greetStyle)),
           ],
         ),
       ),
-      Padding(
-        padding: const EdgeInsets.only(top: 100),
+      Center(
         child: Column(
           children: [Text("Type your name:")],
         ),
       ),
-      Padding(
-          padding: const EdgeInsets.only(
-              top: 300.0, left: 60, right: 60, bottom: 30),
-          child: TextField(
-              onChanged: (value) => setState(() {
-                    name = value;
-                  }))),
+      Center(
+        child: TextField(
+            onChanged: (value) => setState(() {
+                  name = value;
+                })),
+      ),
     ]);
   }
 }
@@ -84,7 +87,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color.fromARGB(255, 43, 28, 20), // Your brown color
+          seedColor:
+              const Color.fromARGB(255, 255, 241, 49), // Your brown color
         ),
       ),
       home: const MyHomePage(),
@@ -100,22 +104,47 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  var selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    Widget currentWidgetPage = const Text("!!!");
+    switch (selectedIndex) {
+      case 0:
+        currentWidgetPage = const MenuPage();
+        break;
+      case 1:
+        currentWidgetPage = const OffersPage();
+        break;
+      case 2:
+        currentWidgetPage = const OrderPage();
+        break;
+    }
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: const Color.fromARGB(255, 49, 28, 3),
         title: Image.asset("./images/logo.png"),
       ),
-      body: const Greet(),
+      bottomNavigationBar: BottomNavigationBar(
+          currentIndex: selectedIndex,
+          onTap: (newIndex) {
+            setState(() {
+              selectedIndex = newIndex;
+            });
+          },
+          backgroundColor: const Color.fromARGB(255, 49, 28, 3),
+          selectedItemColor: const Color.fromARGB(255, 223, 119, 0),
+          unselectedItemColor: const Color.fromARGB(255, 175, 174, 171),
+          items: const [
+            BottomNavigationBarItem(
+                label: "Menu", icon: Icon(Icons.coffee_rounded)),
+            BottomNavigationBarItem(
+                label: "Offers", icon: Icon(Icons.local_offer_rounded)),
+            BottomNavigationBarItem(
+                label: "Order",
+                icon: Icon(Icons.shopping_cart_checkout_rounded)),
+          ]),
+      body: currentWidgetPage,
     );
   }
 }
